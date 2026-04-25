@@ -8,16 +8,18 @@
 </head>
 <body>
   <header>
-    <div class="brand"><a href="/dashboard">Productivity Hub</a></div>
-    <% if (user) { %>
-      <nav>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/projects">Projects</a>
-        <a href="/notes">Notes</a>
-        <form method="POST" action="/logout" style="display:inline">
-          <button type="submit" class="link-btn">Logout (<%= user.name %>)</button>
-        </form>
-      </nav>
-    <% } %>
+    <div class="topbar">
+      <div class="brand"><a href="/dashboard">Productivity Hub</a></div>
+      <% if (user) { %>
+        <nav>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/projects">Projects</a>
+          <a href="/notes">Notes</a>
+          <form method="POST" action="/logout" style="display:inline">
+            <button type="submit" class="link-btn">Logout (<%= user.name %>)</button>
+          </form>
+        </nav>
+      <% } %>
+    </div>
   </header>
   <main>
