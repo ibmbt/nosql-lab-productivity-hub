@@ -105,12 +105,12 @@ const { connect } = require('./db/connection');
 
   console.log('Inserting notes...');
   await db.collection('notes').insertMany([
-    { ownerId: hadiId, projectId: redisId, content: "saara redis to ma khud hi bna lu ga.", tags: ["reminder", "epoll"], createdAt: new Date() },
-    { ownerId: hadiId, projectId: dsaId, content: "ofs file system.", tags: ["files", "trees"], createdAt: new Date() },
-    { ownerId: jaffarId, projectId: adbmsId, content: "need to complete the lab in time please.", tags: ["mongodb", "tips"], createdAt: new Date() },
+    { ownerId: hadiId, projectId: redisId, body: "saara redis to ma khud hi bna lu ga.", tags: ["reminder", "epoll"], createdAt: new Date() },
+    { ownerId: hadiId, projectId: dsaId, body: "ofs file system.", tags: ["files", "trees"], createdAt: new Date() },
+    { ownerId: jaffarId, projectId: adbmsId, body: "need to complete the lab in time please.", tags: ["mongodb", "tips"], createdAt: new Date() },
 
-    { ownerId: hadiId, content: "Need to clean my laptop.", tags: ["personal", "hardware"], createdAt: new Date() },
-    { ownerId: jaffarId, content: "Email butt bhai.", tags: ["career", "todos"], createdAt: new Date() }
+    { ownerId: hadiId, body: "Need to clean my laptop.", tags: ["personal", "hardware"], createdAt: new Date() },
+    { ownerId: jaffarId, body: "Email butt bhai.", tags: ["career", "todos"], createdAt: new Date() }
   ]);
 
   console.log('Database seeded successfully!');
