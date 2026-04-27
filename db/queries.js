@@ -160,8 +160,16 @@ async function archiveProject(db, projectId) {
  *       the caller passed one. Then chain .sort({ priority: -1, createdAt: -1 }).
  */
 async function listProjectTasks(db, projectId, status) {
-  // TODO: implement
-  throw new Error('listProjectTasks not implemented');
+  const filter = { projectId: projectId };
+
+  if (status) {
+    filter.status = status;
+  }
+
+  return await db.collection('tasks')
+    .find(filter)
+    .sort({ priority: -1, createdAt: -1 })
+    .toArray();
 }
 
 /**
@@ -186,8 +194,18 @@ async function listProjectTasks(db, projectId, status) {
  * Hint: insertOne. Apply defaults for any missing optional fields.
  */
 async function createTask(db, taskData) {
-  // TODO: implement
-  throw new Error('createTask not implemented');
+  const newTask = {
+    ownerId: taskData.ownerId,
+    projectId: taskData.projectId,
+    title: taskData.title,
+    priority: taskData.priority !== undefined ? taskData.priority : 1,
+    status: "todo",
+    tags: taskData.tags || [],
+    subtasks: taskData.subtasks || [],
+    createdAt: new Date()
+  };
+
+  return await db.collection('tasks').insertOne(newTask);
 }
 
 /**
@@ -203,8 +221,10 @@ async function createTask(db, taskData) {
  * Hint: updateOne + $set.
  */
 async function updateTaskStatus(db, taskId, newStatus) {
-  // TODO: implement
-  throw new Error('updateTaskStatus not implemented');
+  return await db.collection('tasks').updateOne(
+    { _id: taskId },
+    { $set: { status: newStatus } }
+  );
 }
 
 /**
@@ -224,8 +244,10 @@ async function updateTaskStatus(db, taskId, newStatus) {
  * Hint: which array operator silently skips duplicates? It is NOT $push.
  */
 async function addTaskTag(db, taskId, tag) {
-  // TODO: implement
-  throw new Error('addTaskTag not implemented');
+  return await db.collection('tasks').updateOne(
+    { _id: taskId },
+    { $addToSet: { tags: tag } }
+  );
 }
 
 /**
@@ -245,8 +267,10 @@ async function addTaskTag(db, taskId, tag) {
  * Hint: $pull.
  */
 async function removeTaskTag(db, taskId, tag) {
-  // TODO: implement
-  throw new Error('removeTaskTag not implemented');
+  return await db.collection('tasks').updateOne(
+    { _id: taskId },
+    { $pull: { tags: tag } }
+  );
 }
 
 /**
