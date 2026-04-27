@@ -299,9 +299,17 @@ async function removeTaskTag(db, taskId, tag) {
  *       reference the subtask by title (so Mongo knows which array element
  *       matched), and your $set path uses `subtasks.$.done`.
  */
+
 async function toggleSubtask(db, taskId, subtaskTitle, newDone) {
-  // TODO: implement
-  throw new Error('toggleSubtask not implemented');
+  return await db.collection('tasks').updateOne(
+    {
+      _id: taskId,
+      "subtasks.title": subtaskTitle
+    },
+    {
+      $set: { "subtasks.$.done": newDone }
+    }
+  );
 }
 
 /**
@@ -316,8 +324,7 @@ async function toggleSubtask(db, taskId, subtaskTitle, newDone) {
  * Hint: deleteOne.
  */
 async function deleteTask(db, taskId) {
-  // TODO: implement
-  throw new Error('deleteTask not implemented');
+  return await db.collection('tasks').deleteOne({ _id: taskId });
 }
 
 /**
